@@ -1,3 +1,6 @@
+# temporary editor files
+*.swp
+
 # python junk
 __pycache__
 *.pyc
