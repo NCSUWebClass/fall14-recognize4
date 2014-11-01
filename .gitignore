@@ -1,0 +1,15 @@
+# python junk
+__pycache__
+*.pyc
+*.pyo
+
+# virtual environment junk
+bin
+include
+lib
+lib64
+pyvenv.cfg
+
+# instance-dependent files
+db.sqlite3
+media
