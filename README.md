@@ -15,3 +15,7 @@ run and served from a UNIX-like host.
 2. Run the `setup.sh` script
 3. Follow instructions in your web server's documentation to configure
    serving the Django application
+
+## License
+
+This project is released under the terms of the [MIT License](https://raw.githubusercontent.com/bitbutt/csc342-recognize/master/LICENSE).
