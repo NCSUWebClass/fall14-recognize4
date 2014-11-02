@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-from django.contrib import admin
 from recognize_albums.models import Album, Image
 
 class ImageInline(admin.StackedInline):

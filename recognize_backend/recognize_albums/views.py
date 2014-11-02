@@ -1,6 +1,8 @@
 import json
-from django.shortcuts import render
+
 from django.http import HttpResponse
+from django.shortcuts import render
+
 from recognize_albums.models import Album, Image
 
 def all_albums(request):
