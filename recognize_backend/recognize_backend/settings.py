@@ -22,9 +22,6 @@ INSTALLED_APPS = (
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "recognize_albums",
-    "filer",
-    "easy_thumbnails",
-    "mptt",
 )
 
 MIDDLEWARE_CLASSES = (
@@ -39,8 +36,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = "recognize_backend.urls"
 
 WSGI_APPLICATION = "recognize_backend.wsgi.application"
-
-THUMBNAIL_HIGH_RESOLUTION = True
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
