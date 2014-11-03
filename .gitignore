@@ -10,8 +10,7 @@ __pycache__
 bin
 include
 lib
-lib64
-pyvenv.cfg
+virtualenv
 
 # instance-dependent files
 db.sqlite3
