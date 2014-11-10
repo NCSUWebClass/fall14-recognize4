@@ -25,7 +25,7 @@ echo -e "\n${COLOR_BLUE}[[ Creating Virtual Environment ]]${COLOR_RESET}"
 
 echo -e "\n${COLOR_BLUE}[[ Installing Dependencies ]]${COLOR_RESET}\n"
 
-./bin/python3 -m pip install "django==1.6" "pillow==2.6.1"
+./bin/python3 -m pip install "django==1.6" "pillow==2.6.1" "gunicorn==19.1.1"
 
 echo -e "\n${COLOR_BLUE}[[ Initializing Database ]]${COLOR_RESET}\n"
 
