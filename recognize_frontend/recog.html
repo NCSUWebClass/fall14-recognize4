@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 <title>recognize</title>
@@ -31,18 +32,10 @@
    }
    
    $(document).ready(function() {
-   
-		$("#driver").click(function(event){
-			$.getJSON('http://recognize.bitbutt.io/json/albums/', function(data) {
-				while(data.albums[albumNum].images[totalImageNum] != null){
-					album[album.length] = data.albums[albumNum].images[totalImageNum];
-					totalImageNum = totalImageNum + 1;
-				}
+		$.getJSON('http://recognize.bitbutt.io/json/albums/', function(data) {
+			
 				
-			});
-		
 		});
-		$("#start").click(function(event){
 			var x = randomInt(0, totalImageNum - 1);
 			$('#image').attr('src', 'http://recognize.bitbutt.io/' + album[imageNum]);
 			//var rand1 = randomInt(0, totalImageNum - 1);

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	
+</head>
+
+
+<body>
+	<h1 style ="text-align:center"> This is currently an infinite loop so exit the page to make it stop.</h1>
+	<canvas id="demo" width="800" height="800"></canvas>
+    
+</div>
+</body>
+
+
+
+
+<script type = "text/javascript" language = "javascript">
+		//Initial pixelation
+		var canvas = document.getElementById("demo");
+		var ctx = canvas.getContext('2d');
+		var img = new Image();
+		var value = 50;
+		img.onload = pixelate;		
+		img.src = "http://recognize.bitbutt.io/media/images/wow_0.jpg";		
+		 
+	
+		
+		
+		function pixelate() {
+			
+			var fw = (img.width / value);
+        	var fh = (img.height / value);
+        	console.log(fw);
+        	console.log(fh);
+        	ctx.imageSmoothingEnabled = false;
+    		ctx.mozImageSmoothingEnabled = false;
+    		ctx.msImageSmoothingEnabled = false;
+    		ctx.webkitImageSmoothingEnabled = false;
+        	ctx.drawImage(img, 0, 0, fw, fh);
+    
+    		/// draw the mini-version back up, voila, pixelated
+        	 ctx.drawImage(canvas, 0, 0, fw, fh, 0, 0, img.width, img.height);
+        	 value--;
+		}
+	
+		
+	
+	
+		for(var i = value; i > 0; i-= 5) {
+			var interval = setInterval(function(){pixelate()},2000);
+			if(value === 0) {
+				clearInterval(interval);
+			}
+		  
+		}  
+	
+	
+	</script>
+
+
+
+
+</html>
