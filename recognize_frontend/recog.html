@@ -1,0 +1,143 @@
+<html>
+<head>
+<title>recognize</title>
+   <script type="text/javascript" 
+   src="http://code.jquery.com/jquery-latest.min.js"></script>
+   <script type="text/javascript" language="javascript">
+   
+   var imageNum = 0;
+   var totalImageNum = 0;
+   var albumNum = 0;
+   var corNum = 0;
+   var album = [];
+   var rands = [];
+   
+   function randomInt(min,max) {
+		var rand1 = Math.floor(Math.random()*(max-min+1)+min);
+		var rand2 = Math.floor(Math.random()*(max-min+1)+min);
+		while (rand1 == rand2){
+			rand2 = Math.floor(Math.random()*(max-min+1)+min);
+		}
+		var rand3 = Math.floor(Math.random()*(max-min+1)+min);
+		while(rand3 == rand1 || rand3 == rand2){
+			rand3 = Math.floor(Math.random()*(max-min+1)+min);
+		}
+		rands[0] = rand1;
+		rands[1] = rand2;
+		rands[2] = rand3;
+		
+		return 3;
+		
+   }
+   
+   $(document).ready(function() {
+   
+		$("#driver").click(function(event){
+			$.getJSON('http://recognize.bitbutt.io/json/albums/', function(data) {
+				while(data.albums[albumNum].images[totalImageNum] != null){
+					album[album.length] = data.albums[albumNum].images[totalImageNum];
+					totalImageNum = totalImageNum + 1;
+				}
+				
+			});
+		
+		});
+		$("#start").click(function(event){
+			var x = randomInt(0, totalImageNum - 1);
+			$('#image').attr('src', 'http://recognize.bitbutt.io/' + album[imageNum]);
+			//var rand1 = randomInt(0, totalImageNum - 1);
+			$('#ans1').attr('src', 'http://recognize.bitbutt.io/' + album[rands[0]]);
+			//var rand2 = randomInt(0, totalImageNum - 1);
+			//while(
+			$('#ans2').attr('src', 'http://recognize.bitbutt.io/' + album[rands[1]]);
+			//var rand3 = randomInt(0, totalImageNum - 1);
+			$('#ans3').attr('src', 'http://recognize.bitbutt.io/' + album[rands[2]]);
+		});
+	    $("#ans1").click(function(event){
+			if($('#image').attr('src') == $('#ans1').attr('src') ){
+				corNum++;
+				$('#score').html(corNum);
+			}
+			imageNum++;
+			if(imageNum >= totalImageNum){
+				imageNum = 0;
+			}
+			var x = randomInt(0, totalImageNum - 1);
+			$('#image').attr('src', 'http://recognize.bitbutt.io/' + album[imageNum]);
+			//var rand1 = randomInt(0, totalImageNum - 1);
+			$('#ans1').attr('src', 'http://recognize.bitbutt.io/' + album[rands[0]]);
+			//var rand2 = randomInt(0, totalImageNum - 1);
+			$('#ans2').attr('src', 'http://recognize.bitbutt.io/' + album[rands[1]]);
+			//var rand3 = randomInt(0, totalImageNum - 1);
+			$('#ans3').attr('src', 'http://recognize.bitbutt.io/' + album[rands[2]]);
+			
+			
+          
+      });
+	   $("#ans2").click(function(event){
+			if($('#image').attr('src') == $('#ans2').attr('src') ){
+				corNum++;
+				$('#score').html(corNum);
+			}
+			imageNum++;
+			if(imageNum >= totalImageNum){
+				imageNum = 0;
+			}
+			var x = randomInt(0, totalImageNum - 1);
+			$('#image').attr('src', 'http://recognize.bitbutt.io/' + album[imageNum]);
+			//var rand1 = randomInt(0, totalImageNum - 1);
+			$('#ans1').attr('src', 'http://recognize.bitbutt.io/' + album[rands[0]]);
+			//var rand2 = randomInt(0, totalImageNum - 1);
+			$('#ans2').attr('src', 'http://recognize.bitbutt.io/' + album[rands[1]]);
+			//var rand3 = randomInt(0, totalImageNum - 1);
+			$('#ans3').attr('src', 'http://recognize.bitbutt.io/' + album[rands[2]]);
+			
+          
+      });
+	   $("#ans3").click(function(event){
+			if($('#image').attr('src') == $('#ans3').attr('src') ){
+				corNum++;
+				$('#score').html(corNum);
+			}
+			imageNum++;
+			if(imageNum >= totalImageNum){
+				imageNum = 0;
+			}
+			
+			var x = randomInt(0, totalImageNum - 1);
+			$('#image').attr('src', 'http://recognize.bitbutt.io/' + album[imageNum]);
+			//var rand1 = randomInt(0, totalImageNum - 1);
+			$('#ans1').attr('src', 'http://recognize.bitbutt.io/' + album[rands[0]]);
+			//var rand2 = randomInt(0, totalImageNum - 1);
+			$('#ans2').attr('src', 'http://recognize.bitbutt.io/' + album[rands[1]]);
+			//var rand3 = randomInt(0, totalImageNum - 1);
+			$('#ans3').attr('src', 'http://recognize.bitbutt.io/' + album[rands[2]]);
+          
+      });
+	  
+	  
+   });
+  
+   </script>
+</head>
+<body>
+   <p>Click generate album the click start. Generate album right now just pulls in the first album and creates an array of the image links. 
+	Eventually I will add a way to choose an album. Also it just keeps looping through the album forever, but I'm assuming we would want it to
+	end. I just did it this way now so it would not break.
+   
+   </p>
+   <div id="score">
+		0
+   </div>
+   <div id="quiz" >
+		<img id="image" width="250px" height="250px"/>
+   </div>
+   <div id="answers">
+		<img id="ans1" width="250px" height="250px"/>
+		<img id="ans2" width="250px" height="250px"/>
+		<img id="ans3" width="250px" height="250px"/>
+   </div>
+   <input type="button" id="driver" value="Generate Album" />
+   <input type="button" id="start" value="start" />
+</body>
+</html>
