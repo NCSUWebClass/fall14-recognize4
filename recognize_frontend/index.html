@@ -8,7 +8,6 @@
 
 
 <body>
-	<h1 style ="text-align:center"> This is currently an infinite loop so exit the page to make it stop.</h1>
 	<canvas id="demo" width="800" height="800"></canvas>
     
 </div>
@@ -43,19 +42,19 @@
     
     		/// draw the mini-version back up, voila, pixelated
         	 ctx.drawImage(canvas, 0, 0, fw, fh, 0, 0, img.width, img.height);
-        	 value--;
+        	 value -= 5;
+        	 if(value === 0) {
+        	 	clearInterval(interval);
+        	 }
+        	  
 		}
 	
 		
 	
 	
-		for(var i = value; i > 0; i-= 5) {
+		
 			var interval = setInterval(function(){pixelate()},2000);
-			if(value === 0) {
-				clearInterval(interval);
-			}
-		  
-		}  
+			
 	
 	
 	</script>
