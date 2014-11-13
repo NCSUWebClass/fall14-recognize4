@@ -21,19 +21,22 @@
 		var canvas = document.getElementById("demo");
 		var ctx = canvas.getContext('2d');
 		var img = new Image();
-		var value = 50;
+		var value = 25;
 		img.onload = pixelate;		
-		img.src = "http://recognize.bitbutt.io/media/images/wow_0.jpg";		
+		img.src = "http://recognize.bitbutt.io/media/images/alf_0.jpg";		
 		 
 	
 		
 		
 		function pixelate() {
-			
+			 
 			var fw = (img.width / value);
         	var fh = (img.height / value);
-        	console.log(fw);
-        	console.log(fh);
+        	console.log(value);
+        	
+        	if(fw == Number.POSITIVE_INFINITY || fh == Number.POSITIVE_INFINITY) {
+        		clearInterval(interval);
+        	}
         	ctx.imageSmoothingEnabled = false;
     		ctx.mozImageSmoothingEnabled = false;
     		ctx.msImageSmoothingEnabled = false;
@@ -42,18 +45,12 @@
     
     		/// draw the mini-version back up, voila, pixelated
         	 ctx.drawImage(canvas, 0, 0, fw, fh, 0, 0, img.width, img.height);
-        	 value -= 5;
-        	 if(value === 0) {
-        	 	clearInterval(interval);
-        	 }
+        	 value--;
+        	
         	  
 		}
 	
-		
-	
-	
-		
-			var interval = setInterval(function(){pixelate()},2000);
+			var interval = setInterval(function(){pixelate()},250);
 			
 	
 	
