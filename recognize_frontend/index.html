@@ -22,7 +22,7 @@
 		var canvas = document.getElementById("demo");
 		var ctx = canvas.getContext('2d');
 		var img = new Image();
-		var value = 25;
+		var value = 20;
 		img.onload = pixelate;		
 		img.src = "http://recognize.bitbutt.io/media/images/cheetah_0.jpg";		
 		 
@@ -46,12 +46,12 @@
     
     		/// draw the mini-version back up, voila, pixelated
         	 ctx.drawImage(canvas, 0, 0, fw, fh, 0, 0, img.width, img.height);
-        	 value--;
+        	 value -= 2;
         	
         	  
 		}
 	
-			var interval = setInterval(function(){pixelate()},250);
+			var interval = setInterval(function(){pixelate()},1000);
 			
 	
 	
