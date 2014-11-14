@@ -3,16 +3,88 @@
 <head>
 	
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" language="javascript">
 	
+	function randomNumber(min, max) {
+		return Math.floor(Math.random() * (max - min)+min);
+	}	
+	
+	
+	
+	//Building the Image Page
+	var questionImage
+	$.getJSON('http://recognize.bitbutt.io/json/albums/', function(data) {
+			//Pick a random album can be changed later
+			//If the random album only has one image get another one.
+			var albumNumber = randomNumber(0, data.albums.length);
+			var specifiedAlbum = data.albums[albumNumber].images;
+			while(specifiedAlbum.length === 1) {
+				specifiedAlbum = data.albums[randomNumber(0, data.albums.length)].images;
+			}
+			
+			//Get a random image from that album for the question
+			questionImage = specifiedAlbum[randomNumber(0, specifiedAlbum.length)];
+			var answerImages = new Array(3);
+			//Get images to use for possible answers. 
+			answerImages[0] = specifiedAlbum[randomNumber(0, specifiedAlbum.length)];
+			while(answerImages[0] === questionImage) {
+				answerImages[0] = specifiedAlbum[randomNumber(0, specifiedAlbum.length)];
+			}
+			answerImages[1] = specifiedAlbum[randomNumber(0, specifiedAlbum.length)];  
+			while(answerImages[1] === questionImage) {
+				answerImages[1] = specifiedAlbum[randomNumber(0, specifiedAlbum.length)];
+			}
+			answerImages[2] = specifiedAlbum[randomNumber(0, specifiedAlbum.length)];  
+			while(answerImages[2] === questionImage) {
+				answerImages[2] = specifiedAlbum[randomNumber(0, specifiedAlbum.length)];
+			}
+			for(var i = 1; i <= 3; i++) {
+				console.log(answerImages[i-1]);
+				document.getElementById("choice" + i).src = "http://recognize.bitbutt.io" + answerImages[i - 1];
+			}
+			
+	});
+	
+	
+	
+		
+		
+	
+		
+		
+		
+		
+	</script>
 </head>
 
 
+
+
+
+
+
+
+
+
+
+
+
 <body>
-	<div style = "text-align:center">
-		<canvas id="demo" width="500" height="350"></canvas>
+	<div id="questionBlock" style = "text-align:center">
+		<canvas id="demo" width="250" height="250"></canvas>
     </div>
-</div>
+    <div id="answerBlock" style = "text-align:center">
+    	<img id="choice1" width="100px" height="100px"/>
+		<img id="choice2" width="100px" height="100px"/>
+		<img id="choice3" width="100px" height="100px"/>
+    </div>   
 </body>
+
+
+
+
+
+
 
 
 
@@ -24,16 +96,12 @@
 		var img = new Image();
 		var value = 20;
 		img.onload = pixelate;		
-		img.src = "http://recognize.bitbutt.io/media/images/cheetah_0.jpg";		
-		 
-	
-		
-		
+		img.src = "http://recognize.bitbutt.io/media/images/zd_alt_4.jpg";
+		console.log(questionImage);		
 		function pixelate() {
 			 
 			var fw = (img.width / value);
         	var fh = (img.height / value);
-        	console.log(value);
         	
         	if(fw == Number.POSITIVE_INFINITY || fh == Number.POSITIVE_INFINITY) {
         		clearInterval(interval);
@@ -50,11 +118,7 @@
         	
         	  
 		}
-	
 			var interval = setInterval(function(){pixelate()},1000);
-			
-	
-	
 	</script>
 
 
