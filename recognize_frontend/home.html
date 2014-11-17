@@ -17,7 +17,7 @@
 					var albums = data.albums;
 					for(var i = 0; i < albums.length; i++) {
 						var button = "<div><a href=&quot;test.html?album=" + albums[i].title + "&quot;>" + albums[i].title + "</a></div>"
-						$("#albumList").after(button);
+						$("#albumList").append(button);
 						console.log(button);
 					}
 		
