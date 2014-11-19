@@ -11,6 +11,7 @@ var PixelCanvas = (function() {
     var _maxScaleFactor;
     var _scaleFactor;
     var _scaleStep;
+    var _isClear;
 
     function PixelCanvas(canvas) {
         _canvas = canvas;
@@ -26,9 +27,11 @@ var PixelCanvas = (function() {
         _image.height = _canvas.height;
         _image.onload = PixelCanvas.prototype.pixelate;
 
-        _maxScaleFactor = 20;
+        _maxScaleFactor = 50;
         _scaleFactor = this.maxScaleFactor;
-        _scaleStep = 2;
+        _scaleStep = 5;
+
+        _isClear = false;
     }
 
     PixelCanvas.prototype.pixelate = function() {
@@ -39,6 +42,8 @@ var PixelCanvas = (function() {
 
         _context.drawImage(_image, 0, 0, scaledWidth, scaledHeight);
         _context.drawImage(_canvas, 0, 0, scaledWidth, scaledHeight, 0, 0, _image.width, _image.height);
+
+        _isClear = false;
     }
 
     PixelCanvas.prototype.unpixelate = function() {
@@ -53,11 +58,16 @@ var PixelCanvas = (function() {
         } else {
             // completely unpixelated, so clear any residual scaling issues
             _context.drawImage(_image, 0, 0, _image.width, _image.height);
+            _isClear = true;
         }
     }
 
     PixelCanvas.prototype.setImage = function(imageUrl) {
         _image.src = imageUrl;
+    }
+
+    PixelCanvas.prototype.isClear = function() {
+        return _isClear;
     }
 
     return PixelCanvas;
