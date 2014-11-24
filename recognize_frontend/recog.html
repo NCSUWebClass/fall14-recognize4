@@ -9,6 +9,8 @@
    //ToDo:
    //	Add distortion
    //	randomize question images
+   //	fix correct tracking
+   //	fix pixelation to make it stop
    
    
    
@@ -20,12 +22,14 @@
    var album = [];			//this is a little confusing so may change later. List of images in an album
    var albums = [];			//this is the total list of albums
    var rands = [];			//array of random numbers. So far holds three
+   var interval;
    
    //Resets the variables after an album is finished
    function end(){
 		$('.albumButton').removeAttr('hidden');
 		$('.answerButton').attr('hidden', 'hidden');
 		$('#image').attr('hidden', 'hidden');
+		$('canvas').attr('hidden', 'hidden');
 		
 		imageNum = 0;
 		totalImageNum = 0;
@@ -34,6 +38,40 @@
 		rands = [];
    
    }
+   
+   function pixelation(){
+   //Initial pixelation
+		var canvas = document.getElementById("demo");
+		var ctx = canvas.getContext('2d');
+		var img = new Image();
+		var value = 20;
+		img.onload = pixelate;		
+		img.src = 'http://recognize.bitbutt.io/' + album[imageNum];	
+		function pixelate() {
+			 
+			var fw = (img.width / value);
+        	var fh = (img.height / value);
+        	
+        	if(fw == Number.POSITIVE_INFINITY || fh == Number.POSITIVE_INFINITY) {
+        		clearInterval(interval);
+        	}
+        	ctx.imageSmoothingEnabled = false;
+    		ctx.mozImageSmoothingEnabled = false;
+    		ctx.msImageSmoothingEnabled = false;
+    		ctx.webkitImageSmoothingEnabled = false;
+        	ctx.drawImage(img, 0, 0, fw, fh);
+    
+    		/// draw the mini-version back up, voila, pixelated
+			// don't like hardcoding 250
+        	 ctx.drawImage(canvas, 0, 0, fw, fh, 0, 0, 250, 250);
+        	 value -= 2;
+        	
+        	  
+		}
+			interval = setInterval(function(){pixelate()},1000);				
+		}
+   
+
    
    //This function selects three random ints. These ints are used
    //to select the images from the album that will be used for the answer
@@ -103,12 +141,13 @@
 				}
 			
 				randomInt(0, totalImageNum - 1);
-				$('img').removeAttr('hidden');
+				$('.answerButton').removeAttr('hidden');
+				$('canvas').removeAttr('hidden');
 				$('#image').attr('src', 'http://recognize.bitbutt.io/' + album[imageNum]);
 				$('#ans1').attr('src', 'http://recognize.bitbutt.io/' + album[rands[0]]);
 				$('#ans2').attr('src', 'http://recognize.bitbutt.io/' + album[rands[1]]);
 				$('#ans3').attr('src', 'http://recognize.bitbutt.io/' + album[rands[2]]);
-				
+				pixelation();
 			});
 	});
 	
@@ -130,8 +169,10 @@
 			if($('#image').attr('src') == $('#' + this.id).attr('src') ){
 				corNum++;
 				$('#score').html('Number Correct: ' + corNum);
+				
 			}
 			imageNum++;
+			clearInterval(interval);
 			if(imageNum >= totalImageNum){
 				end();
 			} else{
@@ -140,7 +181,9 @@
 				$('#image').attr('src', 'http://recognize.bitbutt.io/' + album[imageNum]);
 				$('#ans1').attr('src', 'http://recognize.bitbutt.io/' + album[rands[0]]);
 				$('#ans2').attr('src', 'http://recognize.bitbutt.io/' + album[rands[1]]);
-				$('#ans3').attr('src', 'http://recognize.bitbutt.io/' + album[rands[2]]);  
+				$('#ans3').attr('src', 'http://recognize.bitbutt.io/' + album[rands[2]]); 
+			
+			pixelation();
 			}
 		});
 		
@@ -151,12 +194,14 @@
 </head>
 <body>
 	<!-- Div for update info -->
+	<!--
 	<div id="info">
 		<p>
 		Choose an album by pressing the button. The third currently doesn't work because it doesn't have 3 images.
 		Also it just keeps looping through the album forever, but I'm assuming we would want it to
 		end. I just did it this way now so it would not break.
 		</p>
+	-->
 	</div>
 	<!-- Div for throwing errors-->
 	<div id="error">
@@ -174,6 +219,7 @@
 	<!-- Div for the image being quizzed on-->
 	<div id="quiz" >
 		<!--The image tags need to have the width and height moved to css -->
+		<canvas id="demo" width="250" height="250"></canvas>
 		<img hidden id="image" />
 	</div>
 	<!-- Div for answer images-->
