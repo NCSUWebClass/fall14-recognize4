@@ -23,6 +23,9 @@
    var albums = [];			//this is the total list of albums
    var rands = [];			//array of random numbers. So far holds three
    var interval;
+   var fileName = "clock-ticking-1.wav";
+   var fileName1 = "scream.wav";
+   var fileName2 = "ting.wav";
    
    //Resets the variables after an album is finished
    function end(){
@@ -123,9 +126,17 @@
 		return 3;
    }
    
+    //Sample code for audio
+    //$("#play").on("click",function(){
+    // var fileName = "clock-ticking-1.wav";
+    // $("#Audio1").attr("src",fileName).trigger("play");
+    //});
+   
    //This lets the user choose an album. It has to be done outside of the main
    //document.ready block because the buttons are dynamically generated.
    $(document).on('click', '.albumButton', function () {
+			//This gives ticking sound when any album is selected
+			$("#Audio1").attr("src",fileName).trigger("play");
 			
 			for(i = 0; i < totalAlbumNum; i++){
 				if(albums[i] == this.value){
@@ -167,17 +178,20 @@
 		//changes images. 
 		$(".answerButton").click(function(event){
 			if($('#image').attr('src') == $('#' + this.id).attr('src') ){
+				$("#Audio3").attr("src",fileName2).trigger("play");
 				corNum++;
 				$('#score').html('Number Correct: ' + corNum);
-				
+			}
+			else{
+				$("#Audio2").attr("src",fileName1).trigger("play");
 			}
 			imageNum++;
 			clearInterval(interval);
 			if(imageNum >= totalImageNum){
+				$("#Audio1").attr("src",fileName).trigger("stop");
 				end();
 			} else{
 				var x = randomInt(0, totalImageNum - 1);
-				
 				$('#image').attr('src', 'http://recognize.bitbutt.io/' + album[imageNum]);
 				$('#ans1').attr('src', 'http://recognize.bitbutt.io/' + album[rands[0]]);
 				$('#ans2').attr('src', 'http://recognize.bitbutt.io/' + album[rands[1]]);
@@ -193,6 +207,16 @@
    
 </head>
 <body>
+	<audio controls id="Audio1"
+		hidden="true"
+		loop /></audio>
+		
+	<audio id="Audio2"
+		hidden="true"></audio>
+		
+	<audio id="Audio3"
+		hidden="true"></audio>
+		
 	<!-- Div for update info -->
 	<!--
 	<div id="info">
