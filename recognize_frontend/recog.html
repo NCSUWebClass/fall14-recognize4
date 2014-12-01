@@ -23,9 +23,10 @@
    var albums = [];			//this is the total list of albums
    var rands = [];			//array of random numbers. So far holds three
    var interval;
-   var fileName = "clock-ticking-1.wav";
-   var fileName1 = "scream.wav";
-   var fileName2 = "ting.wav";
+
+   var soundFileTicking = "audio/clock-ticking-1.mp3";
+   var soundFileWrong = "audio/scream.mp3";
+   var soundFileCorrect = "audio/ting.mp3";
    
    //Resets the variables after an album is finished
    function end(){
@@ -136,7 +137,7 @@
    //document.ready block because the buttons are dynamically generated.
    $(document).on('click', '.albumButton', function () {
 			//This gives ticking sound when any album is selected
-			$("#Audio1").attr("src",fileName).trigger("play");
+			$("#Audio1").attr("src",soundFileTicking).trigger("play");
 			
 			for(i = 0; i < totalAlbumNum; i++){
 				if(albums[i] == this.value){
@@ -178,17 +179,17 @@
 		//changes images. 
 		$(".answerButton").click(function(event){
 			if($('#image').attr('src') == $('#' + this.id).attr('src') ){
-				$("#Audio3").attr("src",fileName2).trigger("play");
+				$("#Audio3").attr("src",soundFileCorrect).trigger("play");
 				corNum++;
 				$('#score').html('Number Correct: ' + corNum);
 			}
 			else{
-				$("#Audio2").attr("src",fileName1).trigger("play");
+				$("#Audio2").attr("src",soundFileWrong).trigger("play");
 			}
 			imageNum++;
 			clearInterval(interval);
 			if(imageNum >= totalImageNum){
-				$("#Audio1").attr("src",fileName).trigger("stop");
+				$("#Audio1").attr("src",soundFileTicking).trigger("stop");
 				end();
 			} else{
 				var x = randomInt(0, totalImageNum - 1);

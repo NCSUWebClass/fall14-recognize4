@@ -1,6 +1,9 @@
 # temporary editor files
 *.swp
 
+# Mac OS garbage
+.DS_Store
+
 # python junk
 __pycache__
 *.pyc
