@@ -3,20 +3,29 @@
 
 	<head>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 	</head>
 	
 	<body>
-		<h2>Please select an album from below to Play</h2>
+		<h2 style="text-align:center">Please select an album from below to Play</h2>
 		<div id="albumList">
 		</div>
 	</body>
 	<script type = "text/javascript" language = "javascript">
+		
 			$(document).ready(function() {
 				$.getJSON('http://recognize.bitbutt.io/json/albums', function(data) {
 					var albums = data.albums;
 					for(var i = 0; i < albums.length; i++) {
-						var button = "<div><a href=&quot;test.html?album=" + albums[i].title + "&quot;>" + albums[i].title + "</a></div>"
+						var button = "<div class = \"row\">";
+						button += "<div class=\"col-xs-6 col-md-3\">";
+						button += "<a href=\"test.html?album=" + albums[i].title + "\" class=\"thumbnail\">" + albums[i].title;
+						button += "<img src=\"http://recognize.bitbutt.io" + albums[i].images[0] + "\">"
+						
+						button += "</a></div></div>"
+						console.log(button);
 						$("#albumList").append(button);
 						console.log(button);
 					}
