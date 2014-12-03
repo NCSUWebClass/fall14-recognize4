@@ -29,4 +29,4 @@ echo -e "\n${COLOR_BLUE}[[ Installing Dependencies ]]${COLOR_RESET}\n"
 
 echo -e "\n${COLOR_BLUE}[[ Initializing Database ]]${COLOR_RESET}\n"
 
-./bin/python3 recognize_backend/manage.py syncdb
+./bin/python3 app/manage.py syncdb
