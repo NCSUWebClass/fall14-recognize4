@@ -8,20 +8,32 @@
 		<script src = "../../static/game/js/common.js"></script>
 	</head>
 	
-	
-	
+
 	
 	<body style="background-color:#07DBC6">
-		<div id="Question" style="text-align:center"></div>
+		<audio id="audioControlWrong" hidden="true"></audio>
+    	<audio id="audioControlCorrect" hidden="true"></audio>
+		
+		<section id="scoreboard" style="position:fixed; top:20px; right:15px; background-color: cyan">
+			
+		</section>
 	
-		<div id="Answer Choices">
+		<section style="text-align:center">
+			<div id="question" style="border-style: groove; border-width: 10px; border-color:cyan; width:270px; position:fixed; top:50px; right:500px">
+				<canvas id="questionCanvas" width="250" height="250"></canvas>
+			</div>
+		</section>	
+	
+		<div id="answerChoices">
+			<img id="answerChoice0"/>
+			<img id="answerChoice1"/>
+			<img id="answerChoice2"/>
 		</div>
-	
-	
-	
-	
-	
 	</body>
+	
+	
+	
+	
 	<script>	
 		//Gets the album name from the url parameter, and in case the name has spaces
 		//it removes the %20 and replaces it with a space.
@@ -29,15 +41,33 @@
 		
 		var images = getJSON(specifiedAlbum);
 		
-		var questionImage = 
-			
+		var questionImage = images[randomNumber(0, images.length)];
+		var pixelCanvas = new PixelCanvas(document.getElementById("questionCanvas"));
+		var score = 0;
+		var answerChoices = getAnswerChoices(questionImage, images);
+		console.log(answerChoices);
+		for(var i = 0; i < answerChoices.length; i++) {
+			$("#answerChoice" + i).src = "http://recognize.bitbutt.io" + answerChoices[i];
+		}
 		
-			
+		$("#scoreboard").append("<p id=\"score\" style=\"font-size:300%\">Score: " + score + "</p>");
 		
 		
+        pixelCanvas.setImage("http://recognize.bitbutt.io" + questionImage);
+        var pixelInterval = setInterval(function() {
+            if (!pixelCanvas.isClear()) {
+                console.log("Unpixelating");
+                pixelCanvas.unpixelate();
+            } else {
+                console.log("Image completely clear, stopping interval");
+                clearInterval(pixelInterval);
+            }
+        }, 2000); // unpixelate every 2 seconds	
 		
+		$("img").click(function(event) {
+    		score = isCorrect(this.src.substring(27), questionImage);
+    		$("#score").text("Score: " + score);
+		});	
 		
-		
-			
 	</script>
 </html>
