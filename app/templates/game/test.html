@@ -3,6 +3,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+		<link href='http://fonts.googleapis.com/css?family=Raleway+Dots' rel='stylesheet' type='text/css'>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script src = "../../static/game/js/pixelcanvas.js"></script>
 		<script src = "../../static/game/js/common.js"></script>
@@ -14,8 +15,8 @@
 		<audio id="audioControlWrong" hidden="true"></audio>
     	<audio id="audioControlCorrect" hidden="true"></audio>
 		
-		<section id="scoreboard" style="position:fixed; top:20px; right:15px; background-color: cyan">
-			
+		<section id="scoreboard" style="position:fixed; top:20px; right:15px">
+			<em><p id="score" style="font-size:300%; font-family: serif">Score: 0</p></em>
 		</section>
 	
 		<section style="text-align:center">
@@ -24,10 +25,11 @@
 			</div>
 		</section>	
 	
-		<div id="answerChoices">
-			<img id="answerChoice0"/>
-			<img id="answerChoice1"/>
-			<img id="answerChoice2"/>
+		<div id="answerChoices" style="position:fixed; top:400px; right: 475px">
+			<img id="answerChoice0" width ="100px" height = "100px">
+			<img id="answerChoice1" width ="100px" height = "100px">
+			<img id="answerChoice2" width ="100px" height = "100px"></br>
+			<button><a href="home.html">Go Back</a></button>
 		</div>
 	</body>
 	
@@ -38,36 +40,80 @@
 		//Gets the album name from the url parameter, and in case the name has spaces
 		//it removes the %20 and replaces it with a space.
 		var specifiedAlbum = decodeURIComponent(location.search).substring(7);
-		
-		var images = getJSON(specifiedAlbum);
-		
-		var questionImage = images[randomNumber(0, images.length)];
-		var pixelCanvas = new PixelCanvas(document.getElementById("questionCanvas"));
 		var score = 0;
+		var questionImage;
+		var images = [];
+		var canvas = document.getElementById("questionCanvas");
+		var pixelCanvas = new PixelCanvas(canvas);
+		var context = canvas.getContext('2d');
+		
+		
+		images = getJSON(specifiedAlbum);
+		
+		questionImage = images[randomNumber(0, images.length)];
+			
 		var answerChoices = getAnswerChoices(questionImage, images);
 		console.log(answerChoices);
 		for(var i = 0; i < answerChoices.length; i++) {
-			$("#answerChoice" + i).src = "http://recognize.bitbutt.io" + answerChoices[i];
+			$("#answerChoice" + i).attr("src", "http://recognize.bitbutt.io" + answerChoices[i]);
+			console.log($("#answerChoice" + i).src);
 		}
-		
-		$("#scoreboard").append("<p id=\"score\" style=\"font-size:300%\">Score: " + score + "</p>");
-		
 		
         pixelCanvas.setImage("http://recognize.bitbutt.io" + questionImage);
         var pixelInterval = setInterval(function() {
             if (!pixelCanvas.isClear()) {
-                console.log("Unpixelating");
+    	        //console.log("Unpixelating");
                 pixelCanvas.unpixelate();
             } else {
-                console.log("Image completely clear, stopping interval");
+                //console.log("Image completely clear, stopping interval");
                 clearInterval(pixelInterval);
-            }
-        }, 2000); // unpixelate every 2 seconds	
+                nextRound(specifiedAlbum);
+       	    }
+       	}, 2000); // unpixelate every 2 seconds	
+        		
 		
 		$("img").click(function(event) {
-    		score = isCorrect(this.src.substring(27), questionImage);
-    		$("#score").text("Score: " + score);
+				var oldScore = score;
+    			score += isCorrect(this.src.substring(27), questionImage);
+    			if(oldScore < score) {
+    				clearInterval(pixelInterval);
+    				nextRound(specifiedAlbum); 
+    				   			
+    			}
+    		
+    			$("#score").text("Score: " + score);
 		});	
+		
+		
+		
+		
+		
+		
+		
+		function nextRound(specifiedAlbum) {
+			context.clearRect(0, 0, canvas.width, canvas.height);
+			questionImage = images[randomNumber(0, images.length)];
+			var answerChoices = getAnswerChoices(questionImage, images);
+			console.log(answerChoices);
+			for(var i = 0; i < answerChoices.length; i++) {
+				$("#answerChoice" + i).attr("src", "http://recognize.bitbutt.io" + answerChoices[i]);
+				console.log($("#answerChoice" + i).src);
+			}
+			pixelCanvas.setImage("http://recognize.bitbutt.io" + questionImage);
+        	pixelInterval = setInterval(function() {
+        	    if (!pixelCanvas.isClear()) {
+        	        //console.log("Unpixelating");
+        	        pixelCanvas.unpixelate();
+        	    } else {
+        	        //console.log("Image completely clear, stopping interval");
+        	        clearInterval(pixelInterval);
+        	        nextRound(specifiedAlbum);
+        	    }
+        	}, 2000); // unpixelate every 2 seconds	
+		}
+		
+		
+		
 		
 	</script>
 </html>

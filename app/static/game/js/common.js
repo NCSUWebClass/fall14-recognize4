@@ -40,15 +40,60 @@ function getJSON(specifiedAlbum) {
 
 
 function getAnswerChoices(questionImage, images) {
-	var choices = [];
+	var answerChoices = [];
 	var randPos = randomNumber(0, images.length);
-	choices.push(questionImage);
-	while(choices.length < 3) {
+	answerChoices.push(questionImage);
+	var counter = 1;
+	while(counter < 3) {
+		console.log(counter);
 		var choice = images[randomNumber(0, images.length)];
-		var newPos = randomNumber(0, images.length);
-		if(choice != questionImage) {
-			choices.push(choice);
+		if(choice != questionImage && contains(answerChoices, choice) === false) {
+			answerChoices.push(choice);
+			counter++;
 		}
 	}
-	return choices
+	answerChoices = randomize(answerChoices);
+	return answerChoices;
 }
+
+
+
+
+function contains(array, value) {
+	for(var i = 0; i < array.length; i++) {
+		if(array[i] === value) {
+			return true;
+		}
+	}
+	return false;
+}
+
+function randomize(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+
+
+}
+
+
+
+
+
+
+
+
+
