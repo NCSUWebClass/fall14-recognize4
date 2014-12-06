@@ -38,7 +38,7 @@ function getJSON(specifiedAlbum) {
 }
 
 
-
+//Gets 3 random answer choices for a question image.
 function getAnswerChoices(questionImage, images) {
 	var answerChoices = [];
 	var randPos = randomNumber(0, images.length);
@@ -58,7 +58,7 @@ function getAnswerChoices(questionImage, images) {
 
 
 
-
+//checks whether an array contains a value.
 function contains(array, value) {
 	for(var i = 0; i < array.length; i++) {
 		if(array[i] === value) {
@@ -68,6 +68,8 @@ function contains(array, value) {
 	return false;
 }
 
+//Source: http://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+//Randomizes the contents of an array.
 function randomize(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
