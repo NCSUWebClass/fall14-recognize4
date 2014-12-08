@@ -2,44 +2,32 @@
 
 <!DOCTYPE html>
 <html>
-
-	<head>
-		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-	</head>
-	
-	<body style="background-color: #07DBC6">
-		<h2 style="text-align:center">Please select an album from below to Play</h2>
-		<div id="albumList">
-		</div>
-	</body>
-	<script type = "text/javascript" language = "javascript">
-		
-			$(document).ready(function() {
-				$.getJSON('http://recognize.bitbutt.io/json/albums', function(data) {
-					var albums = data.albums;
-					for(var i = 0; i < albums.length; i++) {
-						var button = "<div class = \"row\">";
-						button += "<div class=\"col-xs-6 col-md-3\">";
-						button += "<a href=\"test/?album=" + albums[i].title + "\" class=\"thumbnail\">" + albums[i].title;
-						button += "<img src=\"http://recognize.bitbutt.io" + albums[i].images[0] + "\">"
-						
-						button += "</a></div></div>"
-						console.log(button);
-						$("#albumList").append(button);
-						console.log(button);
-					}
-		
-				});
-			});
+        <link rel="stylesheet" href="{% static "game/css/site.css" %}">
+    </head>
+    <body>
+        <h2 class="text-center">Please select an album from below to Play</h2>
 
+        <div class="row">
+            {% for album in albums %}
+                <div class="col-lg-4 text-center">
+                    <!--<div class="album-container">-->
+                    <div style="padding: 30px; margin: 10%;">
+                    <a href="test/?album={{ album.title }}">
+                        <img src="{{ album.images.0 }}" style="width: 250px; height: 250px; border-radius: 50%;" />
+                        <!--<img src="{{ album.images.0 }}" class="album-image" />-->
+                        <br />
+                        <span style="font-size: 32px;" class="album-caption">{{ album.title }}</span>
+                    </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
 
-		</script>
-
-
-
-
+    </body>
 </html>

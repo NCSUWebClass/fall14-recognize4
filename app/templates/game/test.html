@@ -5,6 +5,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% static "game/css/site.css" %}">
 		<link href='http://fonts.googleapis.com/css?family=Raleway+Dots' rel='stylesheet' type='text/css'>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script src="{% static "game/js/pixelcanvas.js" %}"></script>
@@ -15,7 +16,7 @@
 	
 
 	
-	<body style="background-color:#07DBC6">
+    <body>
 		<audio id="audioControlWrong" hidden="true"></audio>
     	<audio id="audioControlCorrect" hidden="true"></audio>
 		
@@ -33,7 +34,7 @@
 			<img id="answerChoice0" width ="100px" height = "100px">
 			<img id="answerChoice1" width ="100px" height = "100px">
 			<img id="answerChoice2" width ="100px" height = "100px"></br>
-			<button><a href="home.html">Go Back</a></button>
+			<a class="btn btn-default" href="/">Go Back</a>
 		</div>
 	</body>
 	
