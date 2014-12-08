@@ -1,3 +1,5 @@
+{% load static from staticfiles %}
+
 <!DOCTYPE html>
 
 <html>
@@ -5,8 +7,10 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 		<link href='http://fonts.googleapis.com/css?family=Raleway+Dots' rel='stylesheet' type='text/css'>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-		<script src = "../../static/game/js/pixelcanvas.js"></script>
-		<script src = "../../static/game/js/common.js"></script>
+        <script src="{% static "game/js/pixelcanvas.js" %}"></script>
+        <script src="{% static "game/js/common.js" %}"></script>
+        <!--<script src="../../static/game/js/pixelcanvas.js"></script>-->
+        <!--<script src="../../static/game/js/common.js"></script>-->
 	</head>
 	
 
@@ -49,6 +53,7 @@
 		
 		
 		images = getJSON(specifiedAlbum);
+        console.log("test.html", "images", images);
 		
 		questionImage = images[randomNumber(0, images.length)];
 			

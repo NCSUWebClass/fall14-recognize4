@@ -40,6 +40,9 @@ function getJSON(specifiedAlbum) {
 
 //Gets 3 random answer choices for a question image.
 function getAnswerChoices(questionImage, images) {
+    console.log("question image", questionImage);
+    console.log("images", images);
+    return;
 	var answerChoices = [];
 	var randPos = randomNumber(0, images.length);
 	answerChoices.push(questionImage);
@@ -75,7 +78,6 @@ function randomize(array) {
 
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
-
     // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;

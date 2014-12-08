@@ -11,5 +11,6 @@ urlpatterns = patterns("",
     url(r"^json/albums/", include("recognize_albums.urls")),
     url(r"^admin/", include(admin.site.urls)),
     url(r"^game/", views.game, name="game"),
+    url(r"^test/", views.test, name="test"),
     url(r"^$", views.index, name="index"),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
