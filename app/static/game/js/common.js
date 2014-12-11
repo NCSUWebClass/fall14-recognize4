@@ -41,6 +41,11 @@ function getJSON(specifiedAlbum) {
 
 //Gets 3 random answer choices for a question image.
 function getAnswerChoices(questionImage, images) {
+	if(images.length < 3) {
+		var answerChoices = [];
+		answerChoices.push(questionImage);
+		return answerChoices;
+	}
 	var answerChoices = [];
 	var randPos = randomNumber(0, images.length);
 	answerChoices.push(questionImage);
