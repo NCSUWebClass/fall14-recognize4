@@ -59,12 +59,19 @@
 		questionImage = images[randomNumber(0, images.length)];
 			
 		var answerChoices = getAnswerChoices(questionImage, images);
-		console.log(answerChoices);
-		for(var i = 0; i < answerChoices.length; i++) {
-			$("#answerChoice" + i).attr("src", "http://recognize.bitbutt.io" + answerChoices[i]);
-			console.log($("#answerChoice" + i).src);
+		if(answerChoices.length < 3) {
+			for(var i = 0; i < answerChoices.length; i++) {
+				$("#answerChoice" + i).attr("src", "http://recognize.bitbutt.io" + answerChoices[0]);
+				console.log($("#answerChoice" + i).src);
+			}
 		}
-		
+		else {
+			console.log(answerChoices);
+			for(var i = 0; i < answerChoices.length; i++) {
+				$("#answerChoice" + i).attr("src", "http://recognize.bitbutt.io" + answerChoices[i]);
+				console.log($("#answerChoice" + i).src);
+			}
+		}		
         pixelCanvas.setImage("http://recognize.bitbutt.io" + questionImage);
         var pixelInterval = setInterval(function() {
             if (!pixelCanvas.isClear()) {
