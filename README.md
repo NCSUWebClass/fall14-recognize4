@@ -27,6 +27,7 @@ University.
 1. Copy/clone the project to the desired install location
 2. Run the `setup.sh` script to install dependencies in the app's virtual environment and initialize the database
 3. Use the following guide to configure serving the Django application with gunicorn and nginx ([link](https://www.digitalocean.com/community/tutorials/how-to-deploy-python-wsgi-apps-using-gunicorn-http-server-behind-nginx))
+4. Access the game at `http://yourConfiguredServer/` and the admin console at `http://yourConfiguredServer/admin/`
 
 ## License
 
