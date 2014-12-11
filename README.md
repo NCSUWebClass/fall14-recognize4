@@ -6,7 +6,7 @@
 
 This repository contains a working prototype of the Recognize project frontend
 and backend for the Fall 2014 semester of CSC-342 at North Carolina State
-University.
+University. This project is a web application built on the Django framework.
 
 ## Team Members
 
