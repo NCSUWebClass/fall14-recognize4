@@ -13,6 +13,7 @@ __pycache__
 bin
 include
 lib
+lib64
 virtualenv
 
 # instance-dependent files
