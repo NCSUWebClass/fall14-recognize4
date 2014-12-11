@@ -19,6 +19,7 @@ function isCorrect(choice, correctAnswer) {
 }
 
 //Gets JSON data from our website
+//Based on http://stackoverflow.com/questions/955217/synchronous-jquery-json-request
 function getJSON(specifiedAlbum) {
 	var images = [];
 	$.ajax({
