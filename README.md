@@ -1,6 +1,6 @@
 # Recognize
 
-![Project Icon](../thumbnail.jpg "Project Icon")
+![Project Icon](https://raw.githubusercontent.com/bitbutt/csc342-recognize/master/thumbnail.jpg "Project Icon")
 
 ## About
 
