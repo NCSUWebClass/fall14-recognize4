@@ -1,3 +1,7 @@
+# Recognize
+
+![Project Icon](../thumbnail.jpg "Project Icon")
+
 ## About
 
 This repository contains a working prototype of the Recognize project frontend
